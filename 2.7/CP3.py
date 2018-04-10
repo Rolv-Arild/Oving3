@@ -11,9 +11,9 @@ DF = Matrix(2, 2, lambda i, j: diff(fun[i], sym[j]))
 F = Matrix([[f1], [f2]])
 x = Matrix([[1.0], [1.0]])
 
-for _ in range(0, 10):
+for _ in range(0, 20):
     x += DF.LUsolve(-F).subs([(u, x[0, 0]), (v, x[1, 0])])
 
-print(x)
+print("x:", x)
 
-print(F.subs([(u, x[0, 0]), (v, x[1, 0])]))
+print("Error:", F.subs([(u, x[0, 0]), (v, x[1, 0])]))
