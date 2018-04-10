@@ -1,5 +1,5 @@
 import numpy as np
-from sympy import Matrix, symbols, sqrt, ln
+from sympy import Matrix, symbols, sqrt, ln, E
 
 pop = np.array([[1960.0, 3039585530.0],
                 [1970.0, 3707475887.0],
@@ -28,7 +28,7 @@ exp = A.LUsolve(b)
 
 x = symbols('x', real=True)
 
-f = np.e ** exp[0, 0] * np.e ** (exp[1, 0] * x)
+f = E ** exp[0, 0] * E ** (exp[1, 0] * x)
 
 est = f.subs(x, 1980)
 actual = 4452584592
