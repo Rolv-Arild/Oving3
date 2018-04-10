@@ -35,10 +35,10 @@ A = A.transpose() * A
 
 par = A.LUsolve(b)
 
-x = symbols('x', real=True)
+t = symbols('t', real=True)
 
-line = line[0, 0] + line[1, 0] * x
-par = par[0, 0] + par[1, 0] * x + par[2, 0] * x ** 2
+line = line[0, 0] + line[1, 0] * t
+par = par[0, 0] + par[1, 0] * t + par[2, 0] * t ** 2
 
 print("Linje:", line)
 print("Parabel:", par)
@@ -46,21 +46,21 @@ print("Parabel:", par)
 # RMSE line
 RMSE = 0
 for p in pop:
-    RMSE += (line.subs(x, p[0]) - p[1]) ** 2
+    RMSE += (line.subs(t, p[0]) - p[1]) ** 2
 RMSE = sqrt(RMSE / len(pop))
 print("RMSE linje: ", RMSE)
 
 # RMSE parabola
 RMSE = 0
 for p in pop:
-    RMSE += (par.subs(x, p[0]) - p[1]) ** 2
+    RMSE += (par.subs(t, p[0]) - p[1]) ** 2
 RMSE = sqrt(RMSE / len(pop))
 print("RMSE parabel: ", RMSE)
 
 # 1980 population
 actual = 4452584592
 
-est = line.subs(x, 1980), par.subs(x, 1980)
+est = line.subs(t, 1980), par.subs(t, 1980)
 
 print("1: 1980 linje:", est[0], ", feil:", abs(est[0] - actual))
 print("2: 1980 parabel:", est[1], ", feil:", abs(est[1] - actual))

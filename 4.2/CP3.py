@@ -26,11 +26,11 @@ A = A.transpose() * A
 
 exp = A.LUsolve(b)
 
-x = symbols('x', real=True)
+t = symbols('t', real=True)
 
-f = E ** exp[0, 0] * E ** (exp[1, 0] * x)
+f = E ** exp[0, 0] * E ** (exp[1, 0] * t)
 
-est = f.subs(x, 1980)
+est = f.subs(t, 1980)
 actual = 4452584592
 
 print("Funksjon:", f)
