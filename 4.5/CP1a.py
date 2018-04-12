@@ -13,24 +13,16 @@ fun = r1, r2, r3 = sqrt((x - x1) ** 2 + (y - y1) ** 2) - radii[0], \
                    sqrt((x - x2) ** 2 + (y - y2) ** 2) - radii[1], \
                    sqrt((x - x3) ** 2 + (y - y3) ** 2) - radii[2]
 
-xk = Matrix(len(sym), 1, [0] * len(sym))
+xk = Matrix(len(sym), 1, lambda j, i: 0.0)
 
+Dr = Matrix(len(fun), len(sym), lambda j, i: (sym[i] - c[j][i]) / (fun[j] + radii[j]))
 
-def S(n):
-    return fun[n].subs([(x, xk[0]), (y, xk[1])]).evalf() + radii[n]
-
-
-def Dr():
-    return Matrix(len(fun), len(sym), lambda j, i: (xk[i] - c[j][i]) / (S(j)))
-
-
-def r():
-    return Matrix(len(fun), 1, lambda j, i: fun[j].subs([(x, xk[0]), (y, xk[1])]).evalf())
-
+r = Matrix(len(fun), 1, lambda j, i: fun[j])
 
 for k in range(0, 20):
-    A = Dr()
-    v = (A.transpose() * A).LUsolve(-A.transpose() * r())
-    xk = xk + v
+    A = Dr.subs([(x, xk[0]), (y, xk[1])]).evalf()
+    rk = r.subs([(x, xk[0]), (y, xk[1])]).evalf()
+    vk = (A.transpose() * A).LUsolve(-A.transpose() * rk)
+    xk = xk + vk
 
 print("(x, y)=(%f, %f)" % (xk[0], xk[1]))
